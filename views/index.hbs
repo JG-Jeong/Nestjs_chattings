@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title> {{data.title}}</title>
+    {{! 여기서 css를 import할 수 잇는 이유는 main.ts에서 
+    app.useStaticAssets(join(__dirname, '..', 'public'));를 통해서 
+    StaticAssets-public를 가져와서 할 수 있는거임. }}
+    <link href='/css/styles.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    {{! 여기서 message는 controller의 @Render로 부터 온 변수임.hbs는 html과 다르게 변수를 받아옴. }}
+    {{data.copyright}}
+    <script src='/js/script.js'></script>
+  </body>
+</html>
+
+{{! 개발자도구->network->response로 가면 이 html 이 그대로 넘어온걸 볼 수 있음.
+SSR으로 그냥 통짜바리로 만들어서 넘어 왔단 뜻 }}
