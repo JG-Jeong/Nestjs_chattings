@@ -19,7 +19,11 @@ export class ChatsGateway
   constructor() {
     this.logger.log('constructor');
   }
-
+  //lifecycle hooks
+  //1. OnGatewayInit -> afterInit() 메소드를 강제로 사용하게 함.
+  //2. OnGatewayConnection -> handleConnection()
+  //3. OnGatewayDisconnection -> handleDisconnection()
+  //이런식으로 implements를 함
   afterInit() {
     this.logger.log('init');
   }
@@ -37,14 +41,9 @@ export class ChatsGateway
     @MessageBody() username: string,
     @ConnectedSocket() socket: Socket,
   ) {
-    console.log(username); //oZQnnibHRGwORHVLAAAD
-    console.log(socket.id);
-    socket.emit('hello_user', 'hello' + username);
+    // username을 DB에 넣는거 작업 할예정 (10.13)
+    // 연결된 모든 socket에 데이터를 보내는게 broadcast하는거
+    socket.broadcast.emit('user_connected', username);
+    return username;
   }
 }
-
-//lifecycle hooks
-//1. OnGatewayInit -> afterInit() 메소드를 강제로 사용하게 함.
-//2. OnGatewayConnection -> handleConnection()
-//3. OnGatewayDisconnection -> handleDisconnection()
-//이런식으로 implements를 함

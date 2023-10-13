@@ -8,13 +8,20 @@ const helloStrangerElement = getElementById('hello_stranger');
 const chattingBoxElement = getElementById('chatting_box');
 const formElemnt = getElementById('chat_form');
 
+//* global socket handler
+socket.on('user_connected', (username) => {
+  console.log(`${username} connected`);
+});
+
+//* draw function
+const drawHelloStranger = (username) =>
+  (helloStrangerElement.innerText = `Hello ${username} Stranger :)`);
+
 function helloUser() {
   const username = prompt('What is your name?');
   //emit('이벤트 이름', 보내는 데이터 값)
-  socket.emit('new_user', username);
-  console.log(username);
-  socket.on('hello_user', (data) => {
-    console.log(data);
+  socket.emit('new_user', username, (data) => {
+    drawHelloStranger(data);
   });
 }
 
