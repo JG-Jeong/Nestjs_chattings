@@ -1,5 +1,5 @@
 //hbs파일에 있는 <script>안에서 가져오는 라이브러리를 할당.
-const socket = io('/');
+const socket = io('/chattings');
 
 const getElementById = (id) => document.getElementById(id);
 
