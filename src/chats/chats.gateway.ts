@@ -19,11 +19,13 @@ export class ChatsGateway
   constructor() {
     this.logger.log('constructor');
   }
+
   //lifecycle hooks
   //1. OnGatewayInit -> afterInit() 메소드를 강제로 사용하게 함.
   //2. OnGatewayConnection -> handleConnection()
   //3. OnGatewayDisconnection -> handleDisconnection()
   //이런식으로 implements를 함
+
   afterInit() {
     this.logger.log('init');
   }
