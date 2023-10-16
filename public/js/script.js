@@ -17,19 +17,32 @@ socket.on('user_connected', (username) => {
 const handleSubmit = (event) => {
   //이벤트 버블링때문에 새로고침이 되는걸 막아줌-> 이거 이해 안됨
   event.preventDefault();
-  console.log('제출');
+  const inputValue = event.target.elements[0].value;
+  if (inputValue !== '') {
+    socket.emit('submit_chat', inputValue);
+    drawNewChat(inputValue);
+    event.target.elements[0].value = '';
+  }
 };
 
 //* draw function
 const drawHelloStranger = (username) =>
   (helloStrangerElement.innerText = `Hello ${username} Stranger :)`);
 
+const drawNewChat = (message) => {
+  const wrapperChatBox = document.createElement('div');
+  const chatBox = `<div>${props.username} : ${message}</div>`;
+
+  wrapperChatBox.innerHTML = chatBox;
+  chattingBoxElement.append(wrapperChatBox);
+};
+
 function helloUser() {
-  //   const username = prompt('What is your name?');
-  //   //emit('이벤트 이름', 보내는 데이터 값)
-  //   socket.emit('new_user', username, (data) => {
-  //     drawHelloStranger(data);
-  //   });
+  const username = prompt('What is your name?');
+  //emit('이벤트 이름', 보내는 데이터 값)
+  socket.emit('new_user', username, (data) => {
+    drawHelloStranger(data);
+  });
 }
 
 function init() {
